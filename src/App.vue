@@ -10,16 +10,17 @@
 			<a v-for="(menuName, i) in menuNames" :key="(menuName, i)">{{ i }}_{{ menuName }}</a>
 		</div>
 
-		<!--<div v-for="(roomName, i) in products" :key="(roomName, i)">
+		<div v-for="(room, i) in products" :key="(room, i)">
+			<img :src="room.image">
 			<h4 :style="style">
-				{{ roomName }}
+				{{ room.title }}
 			</h4>
-			<p>{{ prices[i] }} 만원</p>
-		</div>-->
-		<div> 
-			<img src="https://image.msscdn.net/images/goods_img/20210729/2044024/2044024_1_500.jpg">
+			<p>{{ room.price }}</p>
+		</div>
+		<!-- <div> 
+			<img src="{{ products[0].title }}">
 			<h4 @click="isModalOpened = true">
-				{{ products[0] }}
+				{{ products[0].title }}
 			</h4>
 			<p>50만원</p>
 			<button @click="increase(reportCounts, '역삼')">
@@ -27,14 +28,14 @@
 			</button> <span> 신고수: {{ reportCounts['역삼'] }}</span>
 		</div>
 		<div>
-			<h4>{{ products[1] }}</h4>
+			<h4>{{ products[1].title }}}</h4>
 			<p>50만원</p>
 			<button @click="increase(reportCounts, '천호')">
 				허위매물신고
 			</button> <span> 신고수: {{ reportCounts['천호'] }}</span>
 		</div>
 		<div>
-			<h4>{{ products[2] }}</h4>
+			<h4>{{ products[2].title }}</h4>
 			<p>50만원</p>
 			<button @click="increase(reportCounts, '마포')">
 				허위매물신고
@@ -42,22 +43,24 @@
 		</div>
 		<button @click="prices[0] *= 3;">
 			엄준식
-		</button>
+		</button> -->
 	</div>
 </template>
 
 <script>
-
+import products from './assets/products'
 export default {
 	name: "App",
 	data() {
 		return {
 			isModalOpened: false, // ui의 상태 저장: State
 			prices: [60, 70, 80],
-			products: ["역삼동원룸", "천호동원룸", "마포구원룸"],
+			productss: ["역삼동원룸", "천호동원룸", "마포구원룸"],
+			products,
 			menuNames: ["Home", "Objects", "About"],
 			style: "color:red",
-			reportCounts: {'역삼': 0, '천호': 0, '마포': 0}
+			reportCounts: {'역삼': 0, '천호': 0, '마포': 0},
+			
 		};
 	},
 	methods: {
