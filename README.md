@@ -1,4 +1,4 @@
-# jikvueang
+# vue
 
 ## Project setup
 ```
