@@ -9,7 +9,7 @@ const products = [{
     id : 1,
     title: "Changdong Aurora Bedroom(Queen-size)",
     image: "https://codingapple1.github.io/vue/room1.jpg",
-    content: "침실만 따로 있는 공용 셰어하우스입니다. 최대 2인 가능",
+    content: "침실만 따로 있는 공용 셰어하우스입니다. 최대 2인 가능할지도..?",
     price: 450000
     },
     {
