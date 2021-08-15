@@ -13,7 +13,7 @@
 		<div v-for="(room, i) in products" :key="(room, i)">
 			<img :src="room.image">
 			<h4 :style="style">
-				ABC
+				ABC는 맛있다
 				{{ room.title }}
 			</h4>
 			<p>{{ room.price }}</p>
