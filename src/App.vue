@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<Modal :rooms="products" :isModalOpened="isModalOpened" :clickedId="clickedId" />
-		<Discount v-bind="people" />
+		<Modal :rooms="products" :isModalOpened="isModalOpened" :clickedId="clickedId" @closeModal="isModalOpened = false" @discount="products[clickedId].price -= 1000" />
+		<Discount />
 
 		<div class="menu">
 			<a v-for="(menuName, i) in menuNames" :key="(menuName, i)">{{ i }}_{{ menuName }}</a>
 		</div>
-		<Card v-for="product in products" :key="(product)" :room="product" />
+		<Card v-for="product in products" :key="(product)" :room="product" @openModal="isModalOpened = true; clickedId = $event" />
 	</div>
 </template>
 
@@ -20,7 +20,6 @@ export default {
 	name: "App",
 	data() {
 		return {
-			people: { name: 'kim', age: '20'},
 			clickedId: 0,
 			isModalOpened: false, // ui의 상태 저장: State
 			prices: [60, 70, 80],

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<img :src="room.image">
-		<h4 :style="style">
+		<h4 :style="style" @click="openModal">
 			{{ room.title }}
 		</h4>
 		<p>{{ room.price }}</p>
@@ -22,6 +22,12 @@ export default {
 			required: true,
 			default: null
 		}
+    },
+    emits: ['openModal'],
+    methods: {
+        openModal() {
+            this.$emit('openModal', this.room.id)
+        }
     }
 }
 </script>

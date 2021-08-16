@@ -1,13 +1,17 @@
 <template>
-	<div class="black-bg" v-if="isModalOpened === true" @click="isModalOpened = false">
+	<div class="black-bg" v-if="isModalOpened === true">
 		<div class="white-bg">
 			<h4>{{ rooms[clickedId].title }}</h4>
 			<img :src="rooms[clickedId].image">
 			<p>{{ rooms[clickedId].content }}</p>
 			<p>{{ rooms[clickedId].price }} 원인데...</p>
-			<p @click="rooms[clickedId].price -= 1000;">
+			<button @click="$emit('discount')">
 				할인 ㄱ?
-			</p>
+			</button>
+			<p />
+			<button @click="$emit('closeModal')">
+				닫기
+			</button>
 			<!-- <Discount /> -->
 		</div>
 	</div>
@@ -28,7 +32,8 @@ export default {
 			required: true,
 			default: 0
 		}
-    }
+    },
+	emits: ['closeModal','discount']
 }
 </script>
 

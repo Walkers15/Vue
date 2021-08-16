@@ -35,7 +35,6 @@ module.exports = {
 			}
 		}],
 		"vue/prop-name-casing": ["error", "camelCase"],
-		"vue/attribute-hyphenation": "off",
-		"vue/no-mutating-props": "off"
+		"vue/attribute-hyphenation": "off"
 	}
 };
