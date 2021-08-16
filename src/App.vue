@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<Modal :rooms="products" :isModalOpened="isModalOpened" :clickedId="clickedId" />
-		<Discount />
+		<Discount v-bind="people" />
 
 		<div class="menu">
 			<a v-for="(menuName, i) in menuNames" :key="(menuName, i)">{{ i }}_{{ menuName }}</a>
 		</div>
-		<Card v-for="i in 6" :key="(i)" :room="products[i - 1]" />
+		<Card v-for="product in products" :key="(product)" :room="product" />
 	</div>
 </template>
 
@@ -15,10 +15,12 @@ import products from './assets/products'
 import Discount from './components/Discount.vue'
 import Modal from './components/Modal.vue'
 import Card from './components/Card.vue'
+
 export default {
 	name: "App",
 	data() {
 		return {
+			people: { name: 'kim', age: '20'},
 			clickedId: 0,
 			isModalOpened: false, // ui의 상태 저장: State
 			prices: [60, 70, 80],
