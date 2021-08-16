@@ -33,6 +33,9 @@ module.exports = {
 				"max": 10,
 				"allowFirstLine": true
 			}
-		}]
+		}],
+		"vue/prop-name-casing": ["error", "camelCase"],
+		"vue/attribute-hyphenation": "off",
+		"vue/no-mutating-props": "off"
 	}
 };
