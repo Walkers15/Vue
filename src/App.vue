@@ -1,19 +1,29 @@
 <template>
 	<div>
+		<div v-if="1 == 2">
+			asd
+		</div>
+		<div v-else>
+			asdasd
+		</div>
 		<div class="black-bg" v-if="isModalOpened === true" @click="isModalOpened = false">
 			<div class="white-bg">
-				<h4>상세페이지</h4>
-				<p>상세페이지내용임</p>
+				<h4>{{ products[clickedId].title }}</h4>
+				<img :src="products[clickedId].image">
+				<p>{{ products[clickedId].content }}</p>
+				<p>{{ products[clickedId].price }} 원인데...</p>
+				<p @click="products[clickedId].price -= 1000;">
+					할인 ㄱ?
+				</p>
 			</div>
 		</div>
 		<div class="menu">
 			<a v-for="(menuName, i) in menuNames" :key="(menuName, i)">{{ i }}_{{ menuName }}</a>
 		</div>
 
-		<div v-for="(room, i) in products" :key="(room, i)">
+		<div v-for="(room, i) in products" :key="(room, i)" @click="isModalOpened = true; clickedId = i">
 			<img :src="room.image">
 			<h4 :style="style">
-				ABC는 맛없다 이거쓴사람 혀 바보임?
 				{{ room.title }}
 			</h4>
 			<p>{{ room.price }}</p>
@@ -54,6 +64,7 @@ export default {
 	name: "App",
 	data() {
 		return {
+			clickedId: 0,
 			isModalOpened: false, // ui의 상태 저장: State
 			prices: [60, 70, 80],
 			productss: ["역삼동원룸", "천호동원룸", "마포구원룸"],
