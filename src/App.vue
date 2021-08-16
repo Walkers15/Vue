@@ -1,22 +1,8 @@
 <template>
 	<div>
-		<div v-if="1 == 2">
-			asd
-		</div>
-		<div v-else>
-			asdasd
-		</div>
-		<div class="black-bg" v-if="isModalOpened === true" @click="isModalOpened = false">
-			<div class="white-bg">
-				<h4>{{ products[clickedId].title }}</h4>
-				<img :src="products[clickedId].image">
-				<p>{{ products[clickedId].content }}</p>
-				<p>{{ products[clickedId].price }} 원인데...</p>
-				<p @click="products[clickedId].price -= 1000;">
-					할인 ㄱ?
-				</p>
-			</div>
-		</div>
+		<Modal />
+		<Discount />
+
 		<div class="menu">
 			<a v-for="(menuName, i) in menuNames" :key="(menuName, i)">{{ i }}_{{ menuName }}</a>
 		</div>
@@ -28,38 +14,13 @@
 			</h4>
 			<p>{{ room.price }}</p>
 		</div>
-		<!-- <div> 
-			<img src="{{ products[0].title }}">
-			<h4 @click="isModalOpened = true">
-				{{ products[0].title }}
-			</h4>
-			<p>50만원</p>
-			<button @click="increase(reportCounts, '역삼')">
-				허위매물신고
-			</button> <span> 신고수: {{ reportCounts['역삼'] }}</span>
-		</div>
-		<div>
-			<h4>{{ products[1].title }}}</h4>
-			<p>50만원</p>
-			<button @click="increase(reportCounts, '천호')">
-				허위매물신고
-			</button> <span> 신고수: {{ reportCounts['천호'] }}</span>
-		</div>
-		<div>
-			<h4>{{ products[2].title }}</h4>
-			<p>50만원</p>
-			<button @click="increase(reportCounts, '마포')">
-				허위매물신고
-			</button> <span> 신고수: {{ reportCounts['마포'] }}</span>
-		</div>
-		<button @click="prices[0] *= 3;">
-			엄준식
-		</button> -->
 	</div>
 </template>
 
 <script>
 import products from './assets/products'
+import Discount from './components/Discount.vue'
+import Modal from './components/Modal.vue'
 export default {
 	name: "App",
 	data() {
@@ -81,6 +42,8 @@ export default {
 		}
 	},
 	components: {
+		Discount,
+		Modal
 	}
 };
 </script>
