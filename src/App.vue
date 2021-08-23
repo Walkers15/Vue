@@ -1,65 +1,41 @@
 <template>
 	<div>
-		<div class="black-bg" v-if="isModalOpened === true" @click="isModalOpened = false">
-			<div class="white-bg">
-				<h4>상세페이지</h4>
-				<p>상세페이지내용임</p>
-			</div>
-		</div>
 		<div class="menu">
 			<a v-for="(menuName, i) in menuNames" :key="(menuName, i)">{{ i }}_{{ menuName }}</a>
 		</div>
-
-		<div v-for="(room, i) in products" :key="(room, i)">
-			<img :src="room.image">
-			<h4 :style="style">
-				ABC는 맛없다 이거쓴사람 혀 바보임?
-				{{ room.title }}
-			</h4>
-			<p>{{ room.price }}</p>
-		</div>
-		<!-- <div> 
-			<img src="{{ products[0].title }}">
-			<h4 @click="isModalOpened = true">
-				{{ products[0].title }}
-			</h4>
-			<p>50만원</p>
-			<button @click="increase(reportCounts, '역삼')">
-				허위매물신고
-			</button> <span> 신고수: {{ reportCounts['역삼'] }}</span>
-		</div>
-		<div>
-			<h4>{{ products[1].title }}}</h4>
-			<p>50만원</p>
-			<button @click="increase(reportCounts, '천호')">
-				허위매물신고
-			</button> <span> 신고수: {{ reportCounts['천호'] }}</span>
-		</div>
-		<div>
-			<h4>{{ products[2].title }}</h4>
-			<p>50만원</p>
-			<button @click="increase(reportCounts, '마포')">
-				허위매물신고
-			</button> <span> 신고수: {{ reportCounts['마포'] }}</span>
-		</div>
-		<button @click="prices[0] *= 3;">
-			엄준식
-		</button> -->
+		<Discount v-if="showDiscount === true" />
+		<button @click="sortProducts()">
+			가격순정렬
+		</button>
+		<button @click="sortBack()">
+			되돌리기
+		</button>
+		<transition name="fadeModal">
+			<Modal :rooms="products" :isModalOpened="isModalOpened" :clickedId="clickedId" @closeModal="isModalOpened = false" @discount="products[clickedId].price -= 1000" />
+		</transition>
+		<Card v-for="product in products" :key="(product)" :room="product" @openModal="openModal($event)" />
 	</div>
 </template>
 
 <script>
 import products from './assets/products'
+import Discount from './components/Discount.vue'
+import Modal from './components/Modal.vue'
+import Card from './components/Card.vue'
+
+
+
 export default {
 	name: "App",
 	data() {
 		return {
+			showDiscount: true,
+			clickedId: 0,
 			isModalOpened: false, // ui의 상태 저장: State
 			prices: [60, 70, 80],
-			productss: ["역삼동원룸", "천호동원룸", "마포구원룸"],
 			products,
+			originProducts: [...products],
 			menuNames: ["Home", "Objects", "About"],
-			style: "color:red",
 			reportCounts: {'역삼': 0, '천호': 0, '마포': 0},
 			
 		};
@@ -67,9 +43,22 @@ export default {
 	methods: {
 		increase(obj, key){
 			obj[key]++;
+		},
+		openModal(id) {
+			this.isModalOpened = true;
+			this.clickedId = id;
+		},
+		sortProducts() {
+			this.products.sort((a, b) => b.price - a.price);
+		},
+		sortBack() {
+			this.products = [...this.originProducts];
 		}
 	},
 	components: {
+		Discount,
+		Modal,
+		Card
 	}
 };
 </script>
@@ -88,24 +77,58 @@ export default {
   padding : 15px;
   border-radius : 5px;
 }
+
 .menu a {
   color : white;
   padding : 10px;
 }
+
 body {
   margin : 0;
 }
+
 div {
   box-sizing: border-box;
 }
+
 .black-bg {
   width: 100%; height:100%;
   background: rgba(0,0,0,0.5);
   position: fixed; padding: 20px;
 }
+
 .white-bg {
   width: 100%; background: white;
   border-radius: 8px;
   padding: 20px;
 } 
+
+.start {
+	opacity: 0;
+	transition: all 1s;
+}
+
+.end {
+	opacity: 1;
+}
+
+.fadeModal-enter-from {
+	transform: translateY(-1000px);
+}
+.fadeModal-enter-active {
+	transition: all 1s;
+}
+.fadeModal-enter-to {
+	transform: translateY(0px);
+}
+
+.fadeModal-leave-from {
+	opacity: 1;
+}
+.fadeModal-leave-active {
+	transition: all 1s;
+}
+.fadeModal-leave-to {
+	opacity: 0;
+}
 </style>
